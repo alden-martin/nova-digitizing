@@ -20,3 +20,6 @@
 .padding-container {
   @apply px-10 py-20;
 }
+.body {
+  scroll-behavior: smooth;
+}

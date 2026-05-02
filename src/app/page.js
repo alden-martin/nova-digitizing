@@ -19,8 +19,10 @@ import {
   Cpu,
   ShieldCheckIcon,
   Send,
+  Check,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   const stats = [
@@ -104,11 +106,11 @@ export default function Home() {
     },
   ];
   return (
-    <div className="mt-20">
+    <div className="mt-24">
       {/* Hero */}
       <section className="bg-white-background flex flex-col lg:flex-row justify-center items-center py-10">
         {/* Content */}
-        <div className="w-full lg:w-1/2 ml-10 flex flex-col gap-4">
+        <div className="w-full lg:w-1/2 ml-10 flex flex-col gap-4 items-start">
           <h1 className="font-heading text-5xl font-bold text-primary">
             Premium Embroidery Digitizing & Vector Art Services
           </h1>
@@ -203,9 +205,11 @@ export default function Home() {
             Whether you need a simple logo or a complex multi-color design, our
             team delivers flawless results every time.
           </p>
-          <CtaButton className="w-full lg:w-fit mt-5">
-            Explore Services
-          </CtaButton>
+          <Link href="/services">
+            <CtaButton className="w-full lg:w-fit mt-5">
+              Explore Services
+            </CtaButton>
+          </Link>
         </div>
       </section>
       {/* Core Services */}
@@ -230,6 +234,64 @@ export default function Home() {
           })}
         </div>
         <CtaButton>View All Services</CtaButton>
+      </section>
+      {/* Costume Sublimation   */}
+      <section className="bg-white-background grid grid-cols-1 lg:grid-cols-2 px-10 py-20 gap-x-10 items-center">
+        <div className="flex flex-col">
+          <h1 className="main-heading">Custom Sublimation Apparel</h1>
+          <p className="text-primary/80 text-base leading-relaxed font-body mt-4">
+            Turn your designs into vibrant, high-quality apparel that stands
+            out.
+          </p>
+          <p className="text-primary/80 text-base leading-relaxed font-body mt-4">
+            At Nova Digitizing, we offer premium custom sublimation apparel with
+            full-color, fade-resistant printing. From t-shirts and hoodies to
+            sportswear and accessories, we create apparel that looks bold, feels
+            comfortable, and lasts long.
+          </p>
+          <p className="text-primary/80 text-base leading-relaxed font-body mt-4">
+            Perfect for brands, teams, events, and promotional merchandise.
+          </p>
+          {/* Features */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 my-5">
+            {/* col 1 */}
+            <div className="flex flex-col gap-2 text-primary/80">
+              {[
+                "Unlimited colors & photo-quality prints",
+                "Fade-resistant & long-lasting designs",
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Check className="text-secondary" size={18} />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            {/* col 2 */}
+            <div className="flex flex-col gap-2 text-primary/80 mt-2 lg:mt-0">
+              {[
+                "Perfect for teams, brands & events",
+                "Fast turnaround & bulk orders available",
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Check className="text-secondary" size={18} />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <Link href={"/services"}>
+            <CtaButton>Explore Apparel Service</CtaButton>
+          </Link>
+        </div>
+        <div>
+          <Image
+            src="/home-sub.png"
+            width={650}
+            height={650}
+            alt="cap-hat-digitizing"
+            className="rounded-2xl shadow-xl mt-5 lg:mt-0 "
+          />
+        </div>
       </section>
       {/* Portfolio */}
       <section className="flex flex-col items-center bg-white-background py-20 px-4">
@@ -288,7 +350,9 @@ export default function Home() {
         </div>
 
         {/* CTA */}
-        <CtaButton>View All Portfolio</CtaButton>
+        <Link href={"/portfolio"}>
+          <CtaButton>View All Portfolio</CtaButton>
+        </Link>
       </section>
       {/* Process */}
       <section className="flex flex-col items-center bg-gray-background py-20">

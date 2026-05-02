@@ -62,7 +62,7 @@ function page() {
     },
   ];
   return (
-    <div className="mt-20">
+    <div className="mt-24">
       {" "}
       {/* Hero */}
       <section className="flex flex-col items-center padding-container text-center bg-[url(/hero/order.jpg)] bg-cover bg-center relative">
@@ -298,13 +298,13 @@ function page() {
                 {/* Country */}
                 <div className="flex flex-col items-start justify-start gap-y-1">
                   <label htmlFor="RequestType" className="text-sm font-body">
-                    Preferred Contact Method
+                    Preferred File Format
                   </label>
                   <select
                     name="RequestType"
                     className="border p-2 rounded-2xl w-full bg-primary/5"
                   >
-                    <option value="Default">Select Method</option>
+                    <option value="Default">Select File Type</option>
                     {[
                       "DST",
                       "PES",

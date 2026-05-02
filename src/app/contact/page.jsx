@@ -1,6 +1,7 @@
 import Cta from "@/components/Cta";
 import CtaButton from "@/components/CtaButton";
 import FaqCard from "@/components/FaqCard";
+import { tawkToChat } from "@/utils/tawkToFunctions";
 import {
   ArrowRight,
   Check,
@@ -10,26 +11,33 @@ import {
   Phone,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+
+export const metadata = {
+  title: "Contact Nova Digitizing | Get Support & Inquiries",
+  description:
+    "Contact Nova Digitizing for embroidery digitizing services, support, bulk orders, or inquiries. Available 24/7 for fast response.",
+};
 
 function page() {
   const contacts = [
     {
       icon: Phone,
       title: "Call Us",
-      value: "+1 (555) 123-4567",
+      value: "+1 941-666-7462",
       description: "Available 24/7 for urgent orders",
     },
     {
       icon: Mail,
       title: "Email Us",
-      value: "info@yourdomain.com",
+      value: "  novadigitizing1@gmail.com",
       description: "Response within 30 minutes",
     },
     {
       icon: MessageCircle,
       title: "WhatsApp Support",
-      value: "+1 (555) 123-4567",
+      value: "+1 941-666-7462",
       description: "Quick responses for quotes & support",
     },
     {
@@ -56,7 +64,7 @@ function page() {
     },
   ];
   return (
-    <div className="mt-20">
+    <div className="mt-24">
       {/* Hero */}
       <section className="bg-white-background flex flex-col lg:flex-row justify-center items-center py-10">
         {/* Content */}
@@ -75,10 +83,11 @@ function page() {
           </p>
           <div className="flex gap-4 font-body my-5">
             <CtaButton>Get A Free Quote</CtaButton>
-
-            <button className="bg-white  text-primary w-fit  px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary  border-2">
-              Call Now
-            </button>
+            <Link href="tel:+19416667462">
+              <button className="bg-white  text-primary w-fit  px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary  border-2">
+                Call Now
+              </button>
+            </Link>
           </div>
         </div>
         {/* Image */}

@@ -15,7 +15,13 @@ import {
   Upload,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+export const metadata = {
+  title: "About Nova Digitizing | Expert Embroidery Digitizing Company",
+  description:
+    "Learn about Nova Digitizing, a trusted provider of embroidery digitizing and vector art services with fast delivery and premium stitch quality.",
+};
 
 function page() {
   const features = [
@@ -101,7 +107,7 @@ function page() {
     },
   ];
   return (
-    <div className="mt-20">
+    <div className="mt-24">
       {" "}
       {/* Hero */}
       <section className="bg-white-background flex flex-col lg:flex-row justify-center items-center py-10">
@@ -122,10 +128,11 @@ function page() {
           </p>
           <div className="flex gap-4 font-body my-5">
             <CtaButton className="mt-5">Get A Free Quote</CtaButton>
-
-            <button className="bg-white  text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary  border-2">
-              View Services
-            </button>
+            <Link href="/services">
+              <button className="bg-white  text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary  border-2">
+                View Services
+              </button>
+            </Link>
           </div>
         </div>
         {/* Image */}

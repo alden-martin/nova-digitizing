@@ -1,10 +1,13 @@
-import BeforeAfter from "@/components/BeforAfter";
 import Cta from "@/components/Cta";
 import CtaButton from "@/components/CtaButton";
 import ImageGallery from "@/components/ImageGallery";
-import { Check } from "lucide-react";
-import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+export const metadata = {
+  title: "Digitizing Portfolio | Embroidery & Vector Art Samples",
+  description:
+    "View our portfolio of embroidery digitizing, cap designs, 3D puff, vector art, and custom patches delivered for clients worldwide.",
+};
 
 function page() {
   const digitizingImages = [
@@ -52,7 +55,7 @@ function page() {
     },
   ];
   return (
-    <div className="mt-20">
+    <div className="mt-24">
       {/* Hero */}
       <section className="flex flex-col items-center px-20 py-30 text-center bg-[url(/hero/order.jpg)] bg-cover bg-center relative">
         {/* Overlay */}
@@ -71,9 +74,11 @@ function page() {
 
           <div className="flex gap-4 font-body">
             <CtaButton className="mt-5">Get A Quote</CtaButton>
-            <button className="bg-white  text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary  border-2">
-              View Gallery
-            </button>
+            <Link href="#gallery">
+              <button className="bg-white  text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary  border-2">
+                View Gallery
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -88,7 +93,10 @@ function page() {
         </p>
       </section>
       {/* Portfolio Gallery */}
-      <section className="bg-gray-background flex flex-col items-center justify-center padding-container">
+      <section
+        className="bg-gray-background flex flex-col items-center justify-center padding-container"
+        id="gallery"
+      >
         {/* Embroider Digitizing */}
         <div className="flex flex-col items-center">
           <h1 className="main-heading mb-5 ">Embroidery Digitizing</h1>

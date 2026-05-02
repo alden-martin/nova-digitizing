@@ -2,7 +2,13 @@ import Cta from "@/components/Cta";
 import CtaButton from "@/components/CtaButton";
 import FaqCard from "@/components/FaqCard";
 import PricingCard from "@/components/PricingCard";
+import Link from "next/link";
 import React from "react";
+export const metadata = {
+  title: "Digitizing Pricing | Embroidery Starts from $8 | Nova Digitizing",
+  description:
+    "Affordable embroidery digitizing pricing starting from $8. Cap, jacket back, 3D puff, and vector art packages available. Get a free quote.",
+};
 
 function page() {
   const heroStats = [
@@ -268,7 +274,7 @@ function page() {
     },
   ];
   return (
-    <div className="mt-20">
+    <div className="mt-24">
       {/* Hero */}
       <section className="flex flex-col items-center padding-container text-center bg-white-background">
         {/* Heading */}
@@ -290,10 +296,11 @@ function page() {
         {/* Buttons Container */}
         <div className="flex gap-4 font-body ">
           <CtaButton className="mt-5">Get A Free Quote</CtaButton>
-
-          <button className="bg-white  text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary  border-2">
-            View Services
-          </button>
+          <Link href="/services">
+            <button className="bg-white  text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary  border-2">
+              View Services
+            </button>
+          </Link>
         </div>
         {/* Stats */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-25 mt-10">

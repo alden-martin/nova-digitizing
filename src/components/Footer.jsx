@@ -47,13 +47,13 @@ export default function Footer() {
           <ul className="text-white-background/70 flex flex-col gap-y-3">
             <li className="flex items-center gap-x-2 text-sm">
               <Mail size={16} />
-              <a href="mailto:info@novadigitizing.com">
-                info@novadigitizing.com
+              <a href="mailto:novadigitizing1@gmail.com">
+                novadigitizing1@gmail.com
               </a>
             </li>
             <li className="flex items-center gap-x-2 text-sm">
               <Phone size={16} />
-              <a href="tel:+15551234567">+1 (555) 123-4567</a>
+              <a href="tel:+19416667462">+1 941-666-7462</a>
             </li>
           </ul>
         </div>

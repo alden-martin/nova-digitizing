@@ -2,8 +2,13 @@ import Cta from "@/components/Cta";
 import CtaButton from "@/components/CtaButton";
 import { Check, Clock, FileCheck, Pen, RefreshCcw } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
-
+export const metadata = {
+  title: "Embroidery Digitizing & Vector Art Services | Nova Digitizing",
+  description:
+    "Explore professional digitizing services including cap digitizing, jacket back, 3D puff, vector art, and custom patches with fast turnaround.",
+};
 function page() {
   const whyUs = [
     {
@@ -28,7 +33,7 @@ function page() {
     },
   ];
   return (
-    <div className="mt-20">
+    <div className="mt-24">
       {" "}
       {/* Hero */}
       <section className="bg-white-background flex flex-col lg:flex-row justify-center items-center py-10">
@@ -48,10 +53,11 @@ function page() {
           </p>
           <div className="flex gap-4 font-body my-5">
             <CtaButton className="mt-5">Get A Free Quote</CtaButton>
-
-            <button className="bg-white  text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary  border-2">
-              Order Now
-            </button>
+            <Link href="/order">
+              <button className="bg-white  text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary  border-2">
+                Order Now
+              </button>
+            </Link>
           </div>
         </div>
         {/* Image */}
@@ -116,7 +122,9 @@ function page() {
             <h2 className=" font-semibold">Supported Formats</h2>
             <p>DST, PES, EXP, EMB, JEF, VP3</p>
           </div>
-          <CtaButton>Request This Service</CtaButton>
+          <Link href="/order">
+            <CtaButton>Request This Service</CtaButton>
+          </Link>
         </div>
       </section>
       {/* Cap & Hat Digitizing Services */}
@@ -154,7 +162,9 @@ function page() {
               )}
             </div>
           </div>
-          <CtaButton>Request This Service</CtaButton>
+          <Link href="/order">
+            <CtaButton>Request This Service</CtaButton>
+          </Link>
         </div>
         <div>
           <Image
@@ -210,7 +220,9 @@ function page() {
               )}
             </div>
           </div>
-          <CtaButton>Order 3d Puff Design</CtaButton>
+          <Link href="/order">
+            <CtaButton>Order 3d Puff Design</CtaButton>
+          </Link>
         </div>
       </section>
       {/* Jacket Back & Large Design Digitizing  */}
@@ -309,23 +321,49 @@ function page() {
             <h2 className=" font-semibold">Supported Formats</h2>
             <p>AI, EPS, SVG, PDF, PNG</p>
           </div>
-          <CtaButton>Convert My Logo</CtaButton>
+          <Link href="/order">
+            <CtaButton>Convert My Logo</CtaButton>
+          </Link>
         </div>
       </section>
       {/* Custom Embroidery Patch Design */}
       <section className="bg-white-background grid grid-cols-1 lg:grid-cols-2 px-10 py-20 gap-x-10 items-center">
         {/* Content */}
         <div className="flex flex-col">
-          <h1 className="main-heading">Custom Embroidery Patch Design</h1>
+          <h1 className="main-heading">Custom Patch Design & Manufacturing</h1>
           <p className="text-primary/80 text-base leading-relaxed font-body mt-4">
-            Create premium custom patches for uniforms, brands, schools, and
-            merchandise.
+            Premium-quality patches crafted for brands, teams, uniforms, and
+            businesses worldwide.
+          </p>
+          <p className="text-primary/80 text-base leading-relaxed font-body mt-4">
+            At Nova Digitizing, we create high-quality custom patches designed
+            for durability, precision, and standout branding. From embroidered
+            to PVC, woven, leather, chenille, and sublimated patches — we turn
+            your ideas into premium finished products.
+          </p>
+          <p className="text-primary/80 text-base leading-relaxed font-body mt-4">
+            Whether for uniforms, jackets, caps, sports teams, military units,
+            schools, or promotional branding — our patches are built to impress.
           </p>
           {/* Features */}
           <div className="grid grid-cols-1 lg:grid-cols-2 my-5">
             {/* col 1 */}
             <div className="flex flex-col gap-2 text-primary/80">
-              {["Logo patches", "School badges", "Bulk patch production"].map(
+              {[
+                "Embroidered Patches",
+                "PVC Patches",
+                "Leather Patches",
+                "Silicone & Rubber Patches",
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Check className="text-secondary" size={18} />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            {/* col 2 */}
+            <div className="flex flex-col gap-2 text-primary/80 mt-2 lg:mt-0">
+              {["Woven Patches", "Chenille Patches", "Sublimated Patches"].map(
                 (item, index) => (
                   <div key={index} className="flex items-center gap-2">
                     <Check className="text-secondary" size={18} />
@@ -334,9 +372,54 @@ function page() {
                 ),
               )}
             </div>
+          </div>
+          {/* Backing Option */}
+          <h3 className="text-2xl font-heading font-bold text-primary my-2">
+            Backing Options
+          </h3>
+          <div className="flex flex-col lg:flex-row flex-wrap gap-4 my-2">
+            {[
+              "Iron On",
+              "Vector",
+              "Sew-On",
+              "Adhesive",
+              "Heat Seal",
+              "Hook & Loop",
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-2 bg-gray-background p-2 rounded-2xl border border-black/10"
+              >
+                <Check className="text-secondary" size={18} />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+          {/* Why Choose Us */}
+          <h3 className="text-2xl font-heading font-bold text-primary my-2">
+            Why Choose Us
+          </h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 my-5">
+            {/* col 1 */}
+            <div className="flex flex-col gap-2 text-primary/80">
+              {[
+                "Premium materials & clean finishing",
+                "Free design consultation",
+                "Worldwide shipping",
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Check className="text-secondary" size={18} />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
             {/* col 2 */}
             <div className="flex flex-col gap-2 text-primary/80 mt-2 lg:mt-0">
-              {["Uniform patches", "Custom branding"].map((item, index) => (
+              {[
+                "Fast turnaround & bulk options",
+                "Digital proof before production",
+                "Competitive pricing",
+              ].map((item, index) => (
                 <div key={index} className="flex items-center gap-2">
                   <Check className="text-secondary" size={18} />
                   <span>{item}</span>
@@ -344,7 +427,9 @@ function page() {
               ))}
             </div>
           </div>
-          <CtaButton className="mb-2 lg:mb-0">Request Patch Design</CtaButton>
+          <Link href="/order">
+            <CtaButton className="mb-2 lg:mb-0">Request Patch Design</CtaButton>
+          </Link>
         </div>
         {/* Image */}
         <div>
@@ -355,6 +440,116 @@ function page() {
             alt="jacket-back-digitizing"
             className="rounded-2xl shadow-xl"
           />
+        </div>
+      </section>
+      {/* Custom Sublimation Apparel
+       */}
+      <section className="bg-white-background grid grid-cols-1 lg:grid-cols-2 px-10 py-20 gap-x-10 items-center">
+        {/* Image */}
+        <div>
+          <Image
+            src="/sublimation/1.png"
+            width={650}
+            height={650}
+            alt="jacket-back-digitizing"
+            className="rounded-2xl shadow-xl"
+          />
+        </div>
+        {/* Content */}
+        <div className="flex flex-col">
+          <h1 className="main-heading">Custom Sublimation Apparel</h1>
+          <p className="text-primary/80 text-base leading-relaxed font-body mt-4">
+            Vibrant, full-color apparel that turns your designs into wearable
+            impact.
+          </p>
+          <p className="text-primary/80 text-base leading-relaxed font-body mt-4">
+            We specialize in high-quality sublimation apparel that delivers
+            bold, fade-resistant prints with unlimited color possibilities.
+          </p>
+          <p className="text-primary/80 text-base leading-relaxed font-body mt-4">
+            From t-shirts and hoodies to sportswear and accessories, we create
+            apparel that looks premium, feels comfortable, and lasts long.
+            Perfect for brands, teams, events, and promotions.
+          </p>
+          {/* Our Services */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 my-5">
+            {/* col 1 */}
+            <div className="flex flex-col gap-2 text-primary/80">
+              {["T-Shirts & Tank Tops", "Sportswear & Activewear"].map(
+                (item, index) => (
+                  <div key={index} className="flex items-center gap-2">
+                    <Check className="text-secondary" size={18} />
+                    <span>{item}</span>
+                  </div>
+                ),
+              )}
+            </div>
+            {/* col 2 */}
+            <div className="flex flex-col gap-2 text-primary/80 mt-2 lg:mt-0">
+              {["Hoodies & Sweatshirts", "Accessories"].map((item, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Check className="text-secondary" size={18} />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Why Choose Us */}
+          <h3 className="text-2xl font-heading font-bold text-primary my-2">
+            Why Choose Us
+          </h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 my-5">
+            {/* col 1 */}
+            <div className="flex flex-col gap-2 text-primary/80">
+              {[
+                "Premium fabric & long-lasting prints",
+                "Fast turnaround & bulk production",
+                "Worldwide delivery",
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Check className="text-secondary" size={18} />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+            {/* col 2 */}
+            <div className="flex flex-col gap-2 text-primary/80 mt-2 lg:mt-0">
+              {[
+                "Unlimited colors & photo-quality detail",
+                "Low MOQ available",
+                "Digital proof before production",
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Check className="text-secondary" size={18} />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* What we need */}
+          <h3 className="text-2xl font-heading font-bold text-primary my-2">
+            What we need{" "}
+          </h3>
+          <div className="grid grid-cols-1 my-5">
+            {/* col 1 */}
+            <div className="flex flex-col gap-2 text-primary/80">
+              {[
+                "Your design (AI, PNG, JPG, etc.)",
+                "Apparel type (t-shirt, hoodie, etc.)",
+                "Sizes & quantity",
+                "Design placement (front, back, all-over)",
+                "Delivery timeline",
+              ].map((item, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Check className="text-secondary" size={18} />
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <Link href="/order">
+            <CtaButton className="mb-2 lg:mb-0">Request Patch Design</CtaButton>
+          </Link>
         </div>
       </section>
       {/* Why Choose Us */}
