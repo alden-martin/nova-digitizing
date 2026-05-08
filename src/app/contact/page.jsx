@@ -1,6 +1,7 @@
 import Cta from "@/components/Cta";
 import CtaButton from "@/components/CtaButton";
 import FaqCard from "@/components/FaqCard";
+import QuoteButton from "@/components/QuoteButton";
 import { tawkToChat } from "@/utils/tawkToFunctions";
 import {
   ArrowRight,
@@ -261,7 +262,7 @@ function page() {
           </div>
           {/* Button Container */}
           <div className="flex flex-col gap-y-2 items-start w-fit">
-            <CtaButton>Go To Get A Quote </CtaButton>
+            <QuoteButton />
           </div>
         </div>
       </section>

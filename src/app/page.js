@@ -1,5 +1,6 @@
 import Cta from "@/components/Cta";
 import CtaButton from "@/components/CtaButton";
+import HeroSlider from "@/components/HeroSlider";
 import Testimonials from "@/components/Testimonials";
 import {
   CircleCheckBig,
@@ -108,54 +109,7 @@ export default function Home() {
   return (
     <div className="mt-24">
       {/* Hero */}
-      <section className="bg-white-background flex flex-col lg:flex-row justify-center items-center py-10">
-        {/* Content */}
-        <div className="w-full lg:w-1/2 ml-10 flex flex-col gap-4 items-start">
-          <h1 className="font-heading text-5xl font-bold text-primary">
-            Premium Embroidery Digitizing & Vector Art Services
-          </h1>
-          <p className="font-body text-lg text-primary/80">
-            Transform your logos, artwork, and designs into production-ready
-            embroidery files with unmatched precision, fast turnaround, and
-            professional stitch quality.
-          </p>
-          <p className="font-body text-lg text-primary/80">
-            We specialize in embroidery digitizing, vector art conversion, 3D
-            puff designs, cap digitizing, jacket back digitizing, and custom
-            patch services.
-          </p>
-          <div className="flex gap-4 font-body my-5">
-            <CtaButton className="mt-5">Get A Free Quote</CtaButton>
-
-            <button className="bg-white  text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary  border-2">
-              Order Now
-            </button>
-          </div>
-          <div className="flex gap-4 font-body my-5 justify-center">
-            {["Fast Delivery", "Quality Guaranteed", "Unlimited Revisions"].map(
-              (item, index) => (
-                <span
-                  key={index}
-                  className="flex items-center gap-2 text-secondary"
-                >
-                  <CircleCheckBig size={16} />
-                  {item}
-                </span>
-              ),
-            )}
-          </div>
-        </div>
-        {/* Image */}
-        <div className="w-full lg:w-1/2 flex justify-center mt-2 ">
-          <Image
-            src="/hero/home-hero.png"
-            alt="Hero"
-            width={250}
-            height={250}
-            className="shadow-2xl p-5"
-          />
-        </div>
-      </section>
+      <HeroSlider />
       {/* Stats */}
       <section className="bg-gray-background flex flex-col items-center padding-container">
         <h1 className="main-heading">

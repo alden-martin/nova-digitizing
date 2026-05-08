@@ -1,6 +1,6 @@
 "use client";
 import CtaButton from "@/components/CtaButton";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Hand,
   Clock,
@@ -11,13 +11,173 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import Cta from "@/components/Cta";
+import uploadFiles from "@/utils/cloudinaryUpload";
+import sendEmail from "@/utils/emailjs";
 function page() {
   const [selected, setSelected] = useState([]);
+  const [additionalSelected, setAdditionalSelected] = useState([]);
+  const [formData, setFormData] = useState({
+    requestType: "",
+    fullName: "",
+    email: "",
+    country: "",
+    organization: "",
+    phone: "",
+    contactMethod: "",
+    dueDate: "",
+    designHeight: "",
+    designWidth: "",
+    colors: "",
+    quantity: "",
+    fileFormat: "",
+    description: "",
+  });
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+  const fileInputRef = useRef(null);
+  const handleInputChange = (e) => {
+    const { name, value, type } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "number" ? Number(value) : value,
+    }));
+  };
+
+  const handleFileChange = async (e) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setIsSubmitting(true);
+      setSubmitMessage("Uploading files...");
+
+      try {
+        const uploadResult = await uploadFiles(files);
+
+        if (uploadResult.success) {
+          setUploadedFiles((prev) => [...prev, ...uploadResult.uploadedFiles]);
+          setSubmitMessage(
+            `Successfully uploaded ${uploadResult.uploadedFiles.length} file(s)`,
+          );
+
+          if (uploadResult.failedFiles.length > 0) {
+            setSubmitMessage(
+              (prev) =>
+                prev +
+                `. ${uploadResult.failedFiles.length} file(s) failed to upload.`,
+            );
+          }
+        } else {
+          setSubmitMessage(uploadResult.error || "Failed to upload files");
+        }
+      } catch (error) {
+        setSubmitMessage("Error uploading files");
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (
+      !formData.fullName ||
+      !formData.phone ||
+      !formData.dueDate ||
+      !formData.colors ||
+      selected.length === 0
+    ) {
+      setSubmitMessage(
+        "Please fill in all required fields and select at least one service",
+      );
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitMessage("Submitting order request...");
+
+    try {
+      const fileUrls = uploadedFiles.map((file) => file.url).join(", ");
+      const selectedServices = selected.join(", ");
+      const additionalServices = additionalSelected.join(", ");
+
+      const emailParams = {
+        requestType: formData.requestType,
+        fullName: formData.fullName,
+        email: formData.email,
+        country: formData.country,
+        organization: formData.organization,
+        phone: formData.phone,
+        contactMethod: formData.contactMethod,
+        dueDate: formData.dueDate,
+        designHeight: formData.designHeight,
+        designWidth: formData.designWidth,
+        colors: formData.colors,
+        quantity: formData.quantity,
+        fileFormat: formData.fileFormat,
+        description: formData.description,
+        selectedServices: selectedServices,
+        additionalServices: additionalServices,
+        fileUrls: fileUrls || "No files uploaded",
+        uploadedFilesCount: uploadedFiles.length,
+      };
+
+      const emailResult = await sendEmail(emailParams);
+
+      if (emailResult.success) {
+        setSubmitMessage(
+          "Order submitted successfully! We'll get back to you within an hour.",
+        );
+        // Reset form
+        setFormData({
+          requestType: "",
+          fullName: "",
+          email: "",
+          country: "",
+          organization: "",
+          phone: "",
+          contactMethod: "",
+          dueDate: "",
+          designHeight: "",
+          designWidth: "",
+          colors: "",
+          quantity: "",
+          fileFormat: "",
+          description: "",
+        });
+        setUploadedFiles([]);
+        setSelected([]);
+        setAdditionalSelected([]);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = "";
+        }
+
+        setTimeout(() => {
+          setSubmitMessage("");
+        }, 5000);
+      } else {
+        setSubmitMessage(emailResult.error || "Failed to submit order");
+      }
+    } catch (error) {
+      setSubmitMessage("Error submitting order");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const toggleService = (service) => {
     if (selected.includes(service)) {
       setSelected(selected.filter((s) => s !== service));
     } else {
       setSelected([...selected, service]);
+    }
+  };
+
+  const toggleAdditionalService = (service) => {
+    if (additionalSelected.includes(service)) {
+      setAdditionalSelected(additionalSelected.filter((s) => s !== service));
+    } else {
+      setAdditionalSelected([...additionalSelected, service]);
     }
   };
 
@@ -29,6 +189,7 @@ function page() {
     "Vector Art Conversion",
     "Applique Digitizing",
     "Custom Patch Design",
+    "Sublimation",
     "Sleeve Digitizing",
     "Bulk / Agency Orders",
     "Other",
@@ -97,7 +258,10 @@ function page() {
           your quote.
         </p>
         {/* Order Details */}
-        <form className="bg-white padding-container my-10 rounded-2xl w-full">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white padding-container my-10 rounded-2xl w-full"
+        >
           {/* 1 */}
           <div>
             <h1 className="flex gap-x-2 items-center font-bold mb-5">
@@ -110,7 +274,12 @@ function page() {
               <label htmlFor="RequestType" className="text-sm font-body">
                 Request For *
               </label>
-              <select name="RequestType" className="border p-2 rounded-2xl">
+              <select
+                name="requestType"
+                value={formData.requestType}
+                onChange={handleInputChange}
+                className="border p-2 rounded-2xl"
+              >
                 <option value="Default">Select Request Type</option>
                 <option value="Quote">Get A Quote</option>
                 <option value="Order">Place An Order</option>
@@ -134,35 +303,43 @@ function page() {
               <div className="flex flex-col gap-y-5">
                 {/* Full Name */}
                 <div className="flex flex-col items-start justify-start gap-y-1">
-                  <label htmlFor="FullName" className="text-sm font-body">
+                  <label htmlFor="fullName" className="text-sm font-body">
                     Full Name *
                   </label>
                   <input
                     type="text"
-                    name="FullName"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleInputChange}
                     className="border p-2 rounded-2xl bg-primary/5 w-full"
+                    required
                   />
                 </div>
                 {/* Email Address */}
                 <div className="flex flex-col items-start justify-start gap-y-1">
                   <label htmlFor="Email" className="text-sm font-body">
-                    Email Address
+                    Email Address *
                   </label>
                   <input
-                    type="text"
-                    name="Email"
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     className="border p-2 rounded-2xl bg-primary/5 w-full"
                   />
                 </div>
                 {/* Country */}
                 <div className="flex flex-col items-start justify-start gap-y-1">
-                  <label htmlFor="FullName" className="text-sm font-body">
-                    Full Name *
+                  <label htmlFor="country" className="text-sm font-body">
+                    Country *
                   </label>
                   <input
                     type="text"
-                    name="FullName"
+                    name="country"
+                    value={formData.country}
+                    onChange={handleInputChange}
                     className="border p-2 rounded-2xl bg-primary/5 w-full"
+                    required
                   />
                 </div>
               </div>
@@ -175,7 +352,9 @@ function page() {
                   </label>
                   <input
                     type="text"
-                    name="Organization"
+                    name="organization"
+                    value={formData.organization}
+                    onChange={handleInputChange}
                     className="border p-2 rounded-2xl bg-primary/5 w-full"
                   />
                 </div>
@@ -186,17 +365,22 @@ function page() {
                   </label>
                   <input
                     type="tel"
-                    name="Phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
                     className="border p-2 rounded-2xl bg-primary/5 w-full"
+                    required
                   />
                 </div>
                 {/*  */}
                 <div className="flex flex-col items-start justify-start gap-y-1">
-                  <label htmlFor="RequestType" className="text-sm font-body">
+                  <label htmlFor="contactMethod" className="text-sm font-body">
                     Preferred Contact Method
                   </label>
                   <select
-                    name="RequestType"
+                    name="contactMethod"
+                    value={formData.contactMethod}
+                    onChange={handleInputChange}
                     className="border p-2 rounded-2xl w-full bg-primary/5"
                   >
                     <option value="Default">Select Method</option>
@@ -280,8 +464,11 @@ function page() {
                   </label>
                   <input
                     type="date"
-                    name="DueDate"
+                    name="dueDate"
+                    value={formData.dueDate}
+                    onChange={handleInputChange}
                     className="border p-2 rounded-2xl bg-primary/5 w-full"
+                    required
                   />
                 </div>
                 {/* Design Height (inches) */}
@@ -291,17 +478,21 @@ function page() {
                   </label>
                   <input
                     type="number"
-                    name="DesignHeight"
+                    name="designHeight"
+                    value={formData.designHeight}
+                    onChange={handleInputChange}
                     className="border p-2 rounded-2xl bg-primary/5 w-full"
                   />
                 </div>
-                {/* Country */}
+                {/* Preferred File Format */}
                 <div className="flex flex-col items-start justify-start gap-y-1">
-                  <label htmlFor="RequestType" className="text-sm font-body">
+                  <label htmlFor="fileFormat" className="text-sm font-body">
                     Preferred File Format
                   </label>
                   <select
-                    name="RequestType"
+                    name="fileFormat"
+                    value={formData.fileFormat}
+                    onChange={handleInputChange}
                     className="border p-2 rounded-2xl w-full bg-primary/5"
                   >
                     <option value="Default">Select File Type</option>
@@ -334,8 +525,11 @@ function page() {
                   </label>
                   <input
                     type="text"
-                    name="Colors"
+                    name="colors"
+                    value={formData.colors}
+                    onChange={handleInputChange}
                     className="border p-2 rounded-2xl bg-primary/5 w-full"
+                    required
                   />
                 </div>
                 {/* Design Width (inches) */}
@@ -345,7 +539,9 @@ function page() {
                   </label>
                   <input
                     type="number"
-                    name="DesignWidth"
+                    name="designWidth"
+                    value={formData.designWidth}
+                    onChange={handleInputChange}
                     className="border p-2 rounded-2xl bg-primary/5 w-full"
                   />
                 </div>
@@ -356,7 +552,9 @@ function page() {
                   </label>
                   <input
                     type="number"
-                    name="Quantity"
+                    name="quantity"
+                    value={formData.quantity}
+                    onChange={handleInputChange}
                     className="border p-2 rounded-2xl bg-primary/5 w-full"
                   />
                 </div>
@@ -409,6 +607,9 @@ function page() {
                 multiple
                 accept=".png,.jpg,.jpeg,.pdf,.ai,.psd,.svg"
                 className="hidden"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                disabled={isSubmitting}
               />
             </label>
           </div>
@@ -423,9 +624,12 @@ function page() {
             </h1>
             <label htmlFor="Description">
               <textarea
-                name="Description"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
                 className="w-full h-32 border-primary border rounded-2xl p-2 hover:border-secondary bg-white-background"
                 placeholder="Include stitch requirements, placement, fabric type, deadline, and special instructions."
+                required
               ></textarea>
             </label>
           </div>
@@ -440,12 +644,12 @@ function page() {
             </h1>
             <div className="grid gap-3 sm:grid-cols-2">
               {additionalServices.map((service, index) => {
-                const isChecked = selected.includes(service);
+                const isChecked = additionalSelected.includes(service);
 
                 return (
                   <label
                     key={index}
-                    onClick={() => toggleService(service)}
+                    onClick={() => toggleAdditionalService(service)}
                     className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3.5 transition-all
               ${
                 isChecked
@@ -493,8 +697,58 @@ function page() {
               <p>reCAPTCHA verification placeholder</p>
             </div>
           </div>
+          {/* Status Message */}
+          {submitMessage && (
+            <div
+              className={`mt-5 p-4 rounded-2xl text-center ${
+                submitMessage.includes("success") ||
+                submitMessage.includes("Successfully")
+                  ? "bg-green-100 text-green-800"
+                  : submitMessage.includes("Error") ||
+                      submitMessage.includes("Failed") ||
+                      submitMessage.includes("required")
+                    ? "bg-red-100 text-red-800"
+                    : "bg-blue-100 text-blue-800"
+              }`}
+            >
+              {submitMessage}
+            </div>
+          )}
+
+          {/* Uploaded Files Display */}
+          {uploadedFiles.length > 0 && (
+            <div className="mt-5">
+              <h3 className="text-sm font-semibold mb-2">Uploaded Files:</h3>
+              <div className="space-y-1">
+                {uploadedFiles.map((file, index) => (
+                  <div
+                    key={index}
+                    className="text-xs text-gray-600 flex items-center gap-2"
+                  >
+                    <span>✓</span>
+                    <span>{file.fileName}</span>
+                    <a
+                      href={file.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      View
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Submit Button */}
-          <CtaButton className="mt-5">Submit Order</CtaButton>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="bg-cta mt-5 text-white px-6 py-3 rounded-xl font-body font-semibold hover:bg-cta/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? "Processing..." : "Submit Order"}
+          </button>
         </form>
       </section>
       {/* Features */}

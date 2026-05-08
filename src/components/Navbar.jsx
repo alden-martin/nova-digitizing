@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import QuoteButton from "./QuoteButton";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -44,9 +45,7 @@ function Navbar() {
 
         {/* Desktop CTA */}
         <div className="hidden lg:block">
-          <button className="bg-cta text-white px-6 py-3 rounded-lg shadow-sm">
-            Get a Quote
-          </button>
+          <QuoteButton />
         </div>
 
         {/* Mobile Hamburger */}

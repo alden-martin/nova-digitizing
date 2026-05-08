@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import CtaButton from "./CtaButton";
 import { tawkToChat } from "@/utils/tawkToFunctions";
+import QuoteButton from "./QuoteButton";
 
 function Cta({ heading, text, button, contactButton }) {
   const handleClick = () => {
@@ -14,7 +15,11 @@ function Cta({ heading, text, button, contactButton }) {
       </h1>
       <p className="text-xl text-white-background py-5">{text}</p>
       <div className="flex items-center gap-x-5">
-        <CtaButton>{button}</CtaButton>
+        {button.toLowerCase().includes("quote") ? (
+          <QuoteButton />
+        ) : (
+          <CtaButton>{button}</CtaButton>
+        )}
         {contactButton && (
           <button
             onClick={handleClick}
