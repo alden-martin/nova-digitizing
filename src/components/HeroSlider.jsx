@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 
 import CtaButton from "./CtaButton";
 import QuoteModal from "./QuoteModal";
+import Link from "next/link";
 
 export default function HeroSlider() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -76,9 +77,12 @@ export default function HeroSlider() {
                     </CtaButton>
                   </div>
 
-                  <button className="bg-white text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary border-2">
+                  <Link
+                    href="/order"
+                    className="bg-white text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary border-2"
+                  >
                     Order Now
-                  </button>
+                  </Link>
                 </div>
 
                 <motion.div
@@ -161,9 +165,12 @@ export default function HeroSlider() {
                     <CtaButton className="mt-5">Get A Free Quote</CtaButton>
                   </div>
 
-                  <button className="bg-white text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary border-2">
+                  <Link
+                    href="/order"
+                    className="bg-white text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary border-2"
+                  >
                     Order Now
-                  </button>
+                  </Link>
                 </div>
               </motion.div>
 
@@ -214,9 +221,12 @@ export default function HeroSlider() {
                     <CtaButton className="mt-5">Get A Free Quote</CtaButton>
                   </div>
 
-                  <button className="bg-white text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary border-2">
+                  <Link
+                    href="/order"
+                    className="bg-white text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary border-2"
+                  >
                     Order Now
-                  </button>
+                  </Link>
                 </div>
               </motion.div>
 

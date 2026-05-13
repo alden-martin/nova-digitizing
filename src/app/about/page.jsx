@@ -1,5 +1,6 @@
 import Cta from "@/components/Cta";
 import CtaButton from "@/components/CtaButton";
+import QuoteButton from "@/components/QuoteButton";
 import Testimonials from "@/components/Testimonials";
 import {
   Award,
@@ -127,7 +128,7 @@ function page() {
             reliability.
           </p>
           <div className="flex gap-4 font-body my-5">
-            <CtaButton className="mt-5">Get A Free Quote</CtaButton>
+            <QuoteButton className="mt-5">Get A Free Quote</QuoteButton>
             <Link href="/services">
               <button className="bg-white  text-primary w-fit mt-5 px-6 py-3 font-body rounded-xl transition-all duration-150 cursor-pointer shadow-sm hover:scale-105 hover:bg-primary/90 hover:text-white border-primary  border-2">
                 View Services

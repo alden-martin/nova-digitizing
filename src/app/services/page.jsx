@@ -1,5 +1,6 @@
 import Cta from "@/components/Cta";
 import CtaButton from "@/components/CtaButton";
+import QuoteButton from "@/components/QuoteButton";
 import { Check, Clock, FileCheck, Pen, RefreshCcw } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -261,9 +262,9 @@ function page() {
               )}
             </div>
           </div>
-          <CtaButton className="mb-2 lg:mb-0">
+          <QuoteButton className="mb-2 lg:mb-0">
             Get A Jacket Design Quote
-          </CtaButton>
+          </QuoteButton>
         </div>
         {/* Image */}
         <div>

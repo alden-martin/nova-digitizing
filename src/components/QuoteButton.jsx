@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import CtaButton from "./CtaButton";
 import QuoteModal from "./QuoteModal";
 
-function QuoteButton({ className }) {
+function QuoteButton({ className, children = "Get A Quote" }) {
   const [modalOpen, setModalOpen] = React.useState(false);
 
   return (
@@ -15,7 +15,7 @@ function QuoteButton({ className }) {
           console.log("Quote button clicked");
         }}
       >
-        Get a Quote
+        {children}
       </button>
       <QuoteModal open={modalOpen} setOpen={setModalOpen} />
     </div>
