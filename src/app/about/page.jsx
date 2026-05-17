@@ -141,8 +141,8 @@ function page() {
           <Image
             src="/hero/about.jpg"
             alt="About"
-            width={450}
-            height={450}
+            width={500}
+            height={500}
             className="shadow-2xl p-5"
           />
         </div>

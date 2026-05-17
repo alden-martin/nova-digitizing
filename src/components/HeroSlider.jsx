@@ -215,6 +215,11 @@ export default function HeroSlider() {
                 <p className="font-body text-lg text-primary/80 font-bold">
                   Bring your design to life with vibrant fade-resistant prints.
                 </p>
+                <p className="font-body text-lg text-primary/80 ">
+                  From t-shirts and hoodies to sportswear, we create
+                  high-quality sublimation apparel with unlimited colors and
+                  photo quality details
+                </p>
 
                 <div className="flex gap-4 font-body my-5">
                   <div onClick={() => setOpen(true)}>
@@ -241,8 +246,8 @@ export default function HeroSlider() {
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <Image
-                  src="/costum-patch/1.jpg"
-                  alt="Custom Patch"
+                  src="/hero/slider-sublimation.jpeg"
+                  alt="Sublimation Printing"
                   width={500}
                   height={500}
                   className="shadow-2xl rounded-2xl"
